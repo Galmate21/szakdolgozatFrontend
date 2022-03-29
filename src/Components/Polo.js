@@ -1,98 +1,66 @@
 import { Card, Row, Button, Col, Form } from "react-bootstrap";
 import "../Css/Polo.css";
-import mintasPolo from '../Img/mintasPolo.jpg'
-import feketePolo from '../Img/feketePolo.jpg'
-import feherPolo from '../Img/feherPolo.jpg'
-import sargaPolo from '../Img/sargaPolo.jpg'
+import axios from 'axios';
+import {useState, useEffect} from "react";
+
+
+
 
 
 function Polo() {
+  const [kep, setkep]=useState([])
+  useEffect(()=>{
+   axios({
+     method: 'get',
+     url: 'http://localhost:5501/termekek',
+     responseType: 'stream'
+   })
+     .then((response)=> {
+       setkep(response.data)
+       
+     });
+  },[])
+
   return (
-    <div className="Polo">
+    <div>
       <h1 className="cimtermek">Pólók</h1>
-      <Row md={4}>
-        <Col xs={6}>
+      <Row xs={1} md={4} className="g-4">
+      
+ {kep.map((value)=>{
+     if(value.Tipus=="Póló"){
+      return(
+        <div>
           <Card border="dark">
-            <Card.Img variant="top" img src={feherPolo} />
+            <Card.Img variant="top" className="img-thumbnail" style={{height:"450px"}} img src={value.link} />
             <Card.Body>
-              <Card.Title>Fehér póló</Card.Title>
+              <Card.Title><p>{value.termekNev}</p></Card.Title>
               <Card.Text>
-                Extra loose fit, rövid ujjú póló
+                Férfi
+                <h6>{value.Ar} Ft</h6>
               </Card.Text>
               <Form.Select aria-label="Default select example">
-                <option>Válasz méretet</option>
-                <option value="xs">XS</option>
-                <option value="s">S</option>
-                <option value="m">M</option>
-                <option value="l">L</option>
-                <option value="xl">XL</option>
+              <option>Válasz méretet</option>
+              {value.meret.map((meret)=>{
+                return(<option value={meret}>{meret}</option>)
+              })}
               </Form.Select>
-              <Button id="btn_Pulcsi" variant="dark">Rendelés</Button>
+              <br />
+              <Button id="btn_polo" variant="dark">Rendelés</Button>
             </Card.Body>
           </Card>
-        </Col>
-        <Col xs={6}>
-          <Card border="dark">
-            <Card.Img variant="top" img src={feketePolo} />
-            <Card.Body>
-              <Card.Title>Fekete póló</Card.Title>
-              <Card.Text>
-                Extra fit, rövid ujjú póló
-              </Card.Text>
-              <Form.Select aria-label="Default select example">
-                <option>Válasz méretet</option>
-                <option value="xs">XS</option>
-                <option value="s">S</option>
-                <option value="m">M</option>
-                <option value="l">L</option>
-                <option value="xl">XL</option>
-              </Form.Select>
-              <Button id="btn_Pulcsi" variant="dark">Rendelés</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col xs={6}>
-          <Card border="dark">
-            <Card.Img variant="top" img src={mintasPolo} />
-            <Card.Body>
-              <Card.Title>Mintás póló</Card.Title>
-              <Card.Text>
-                Rövid ujjú póló Naruto-mintával
-              </Card.Text>
-              <Form.Select aria-label="Default select example">
-                <option>Válasz méretet</option>
-                <option value="xs">XS</option>
-                <option value="s">S</option>
-                <option value="m">M</option>
-                <option value="l">L</option>
-                <option value="xl">XL</option>
-              </Form.Select>
-              <Button id="btn_Pulcsi" variant="dark">Rendelés</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col xs={6}>
-          <Card border="dark">
-            <Card.Img variant="top" img src={sargaPolo} />
-            <Card.Body>
-              <Card.Title>Sárga póló</Card.Title>
-              <Card.Text>
-                Fit, rövid ujjú póló
-              </Card.Text>
-              <Form.Select aria-label="Default select example">
-                <option>Válasz méretet</option>
-                <option value="xs">XS</option>
-                <option value="s">S</option>
-                <option value="m">M</option>
-                <option value="l">L</option>
-                <option value="xl">XL</option>
-              </Form.Select>
-              <Button id="btn_Pulcsi" variant="dark">Rendelés</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+          <br />
+        
+          </div>
+    
+     )
+    }
+    
+   
+ })}
+ 
+    </Row>
     </div>
+    
   );
 }
 

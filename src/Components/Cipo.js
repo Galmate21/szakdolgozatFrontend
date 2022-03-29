@@ -1,62 +1,62 @@
 import "../Css/Cipo.css";
 import { Card, Button, Form, Row, Col } from "react-bootstrap";
-import fehCipo from '../Img/fehCipo.jpg';
-import fCipo from '../Img/fCipo.jpg';
-import bCipo from '../Img/bCipo.jpg';
+import axios from 'axios';
+import {useState, useEffect} from "react";
 
 function Cipo() {
+
+  const [kep, setkep]=useState([])
+  useEffect(()=>{
+   axios({
+     method: 'get',
+     url: 'http://localhost:5501/termekek',
+     responseType: 'stream'
+   })
+     .then((response)=> {
+       setkep(response.data)
+       
+     });
+  },[])
+
   return (
     <div className="Cipo">
       <h1 className="cimtermek">Cipők</h1>
       <Row xs={1} md={3} className="g-4">
-        <Col>
-          <Card>
-            <Card.Img variant="top" img src={fehCipo} />
+        
+      {kep.map((value)=>{
+     if(value.Tipus=="Cipő"){
+      return(
+        <div>
+          <Card border="dark">
+            <Card.Img variant="top" className="img-thumbnail"  img src={value.link} />
             <Card.Body>
-              <Card.Title>Fehér cipő</Card.Title>
+              <Card.Title><p>{value.termekNev}</p></Card.Title>
+              <Card.Text>
+                Férfi
+                <h6>{value.Ar} Ft</h6>
+              </Card.Text>
               <Form.Select aria-label="Default select example">
-                <option>Válasz méretet</option>
-                <option value="s">40</option>
-                <option value="m">42</option>
-                <option value="l">44</option>
+              <option>Válasz méretet</option>
+              {value.meret.map((meret)=>{
+                return(<option value={meret}>{meret}</option>)
+              })}
               </Form.Select>
-              <Button id="btn_nadrag" variant="dark">Rendelés</Button>
+              <Button id="btn_cipo" variant="dark">Rendelés</Button>
             </Card.Body>
           </Card>
-        </Col>
-        <Col >
-          <Card>
-            <Card.Img variant="top" img src={fCipo} />
-            <Card.Body>
-              <Card.Title>Fekete cipő</Card.Title>
-              <Form.Select aria-label="Default select example">
-                <option>Válasz méretet</option>
-                <option value="s">40</option>
-                <option value="m">42</option>
-                <option value="l">44</option>
-              </Form.Select>
-              <Button id="btn_nadrag" variant="dark">Rendelés</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col >
-          <Card>
-            <Card.Img variant="top" img src={bCipo} />
-            <Card.Body>
-              <Card.Title>Barna cipő</Card.Title>
-              <Form.Select aria-label="Default select example">
-                <option>Válasz méretet</option>
-                <option value="s">40</option>
-                <option value="m">42</option>
-                <option value="l">44</option>
-              </Form.Select>
-              <Button id="btn_nadrag" variant="dark">Rendelés</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+              <br />
+          </div>
+    
+     )
+    }
+    
+   
+ })}
+ 
+    </Row>
     </div>
-  );
-}
+
+  )}
+
 
 export default Cipo;

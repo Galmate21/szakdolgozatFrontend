@@ -1,114 +1,61 @@
 import { Card, Button, CardGroup, Form, Row, Col } from "react-bootstrap";
 import "../Css/Nadrag.css";
-import fNadrag from '../Img/fNadrag.jpg';
-import kNadrag from '../Img/kNadrag.jpg';
-import feherNadrag from '../Img/feherNadrag.jpg';
-import szMelegitonadrag from '../Img/szMelegitonadrag.jpg';
-import zMelegitonadrag from '../Img/zMelegitonadrag.jpg';
-import kMelegitonadrag from '../Img/kMelegitonadrag.jpg';
+import axios from 'axios';
+
+import {useState, useEffect} from "react";
 
 function Nadrag() {
+  const [kep, setkep]=useState([])
+  useEffect(()=>{
+   axios({
+     method: 'get',
+     url: 'http://localhost:5501/termekek',
+     responseType: 'stream'
+   })
+     .then((response)=> {
+       setkep(response.data)
+       
+     });
+  },[])
+
   return (
-    <div className="Nadrag">
+    <div>
       <h1 className="cimtermek">Nadrágok</h1>
-      <CardGroup>
-        <Card>
-          <Card.Img variant="top" img src={fNadrag} />
-          <Card.Body>
-            <Card.Title>Fekete farmernadrág</Card.Title>
-            <Card.Text>
-              Nagyon szűk skinny farmernadrág
-            </Card.Text>
-            <Form.Select aria-label="Default select example">
-              <option>Válasz méretet</option>
-              <option value="s">36</option>
-              <option value="m">38</option>
-              <option value="l">40</option>
-            </Form.Select>
-            <Button id="btn_nadrag" variant="dark">Rendelés</Button>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Img variant="top" img src={kNadrag} />
-          <Card.Body>
-            <Card.Title>Kék farmernadrág</Card.Title>
-            <Card.Text>
-              Nagyon szűk skinny farmernadrág
-            </Card.Text>
-            <Form.Select aria-label="Default select example">
-              <option>Válasz méretet</option>
-              <option value="s">36</option>
-              <option value="m">38</option>
-              <option value="l">40</option>
-            </Form.Select>
-            <Button id="btn_nadrag" variant="dark">Rendelés</Button>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Img variant="top" img src={feherNadrag} />
-          <Card.Body>
-            <Card.Title>Fehér tépet farmernadrág</Card.Title>
-            <Card.Text>
-              Szuper skinny fazonú,  tépett farmernadrág
-            </Card.Text>
-            <Form.Select aria-label="Default select example">
-              <option>Válasz méretet</option>
-              <option value="s">36</option>
-              <option value="m">38</option>
-              <option value="l">40</option>
-            </Form.Select>
-            <Button id="btn_nadrag" variant="dark">Rendelés</Button>
-          </Card.Body>
-        </Card>
-      </CardGroup>
-      <Row >
-        <Col>
-          <Card>
-            <Card.Img variant="top" img src={szMelegitonadrag} />
+      <Row xs={1} md={3} className="g-4">
+      
+ {kep.map((value)=>{
+     if(value.Tipus=="Nadrág"){
+      return(
+        <div>
+          <Card border="dark">
+            <Card.Img variant="top" className="img-thumbnail" style={{height:"500px"}} img src={value.link} />
             <Card.Body>
-              <Card.Title>Szürke melegítőnadrág</Card.Title>
+              <Card.Title><p>{value.termekNev}</p></Card.Title>
+              <Card.Text>
+                Férfi
+                <h6>{value.Ar} Ft</h6>
+              </Card.Text>
               <Form.Select aria-label="Default select example">
-                <option>Válasz méretet</option>
-                <option value="s">36</option>
-                <option value="m">38</option>
-                <option value="l">40</option>
+              <option>Válasz méretet</option>
+              {value.meret.map((meret)=>{
+                return(<option value={meret}>{meret}</option>)
+              })}
               </Form.Select>
               <Button id="btn_nadrag" variant="dark">Rendelés</Button>
             </Card.Body>
           </Card>
-        </Col>
-        <Col >
-          <Card>
-            <Card.Img variant="top" img src={kMelegitonadrag} />
-            <Card.Body>
-              <Card.Title>Kék melegítőnadrág</Card.Title>
-              <Form.Select aria-label="Default select example">
-                <option>Válasz méretet</option>
-                <option value="s">36</option>
-                <option value="m">38</option>
-                <option value="l">40</option>
-              </Form.Select>
-              <Button id="btn_nadrag" variant="dark">Rendelés</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col >
-          <Card>
-            <Card.Img variant="top" img src={zMelegitonadrag} />
-            <Card.Body>
-              <Card.Title>Zöld melegítőnadrág</Card.Title>
-              <Form.Select aria-label="Default select example">
-                <option>Válasz méretet</option>
-                <option value="s">36</option>
-                <option value="m">38</option>
-                <option value="l">40</option>
-              </Form.Select>
-              <Button id="btn_nadrag" variant="dark">Rendelés</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+              <br />
+          </div>
+    
+     )
+    }
+    
+   
+ })}
+ 
+    </Row>
     </div>
+    
   );
 }
 
