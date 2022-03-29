@@ -13,6 +13,8 @@ import Cipo from './Components/Cipo';
 import Kiegeszitok from './Components/Kiegeszitok';
 import Errorpage from './Components/Errorpage';
 
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -33,7 +35,7 @@ function App() {
         </Routes>
       </div>
 
-      <div class="footer">
+      <div className="footer">
         <p>Szerzői jog © 2022 G and B Inc.</p>
       </div>
     </BrowserRouter>
