@@ -1,7 +1,36 @@
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import '../Css/Navbarcomp.css';
+import {useEffect} from 'react'
 
 function Navbarcomps() {
+  useEffect(()=>{
+    const userinfo=localStorage.getItem("userinfo");
+    var prof=document.getElementById("prof");
+    if(userinfo){
+      
+      var log=document.getElementById("bejelentkezes_nav");
+      log.style.display="none";
+      var reg=document.getElementById("reg_nav");
+      reg.style.display="none";
+      
+      prof.hidden=false;
+     
+    }
+    else{
+      prof.hidden=true
+    }
+    
+    
+    
+   
+  },[]);
+
+  function logout(){
+    localStorage.removeItem("userinfo");
+    alert("Sikeres kijelentkezés!")
+   window.location.reload();
+  }
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
@@ -15,16 +44,17 @@ function Navbarcomps() {
               <NavDropdown.Item href="/Pulover">Pulóverek</NavDropdown.Item>
               <NavDropdown.Item href="/Nadrag">Nadrágok</NavDropdown.Item>
               <NavDropdown.Item href="/Polo">Pólók</NavDropdown.Item>
-              <NavDropdown.Item href="/Kabat">Kabátok</NavDropdown.Item>
+              <NavDropdown.Item  href="/Kabat">Kabátok</NavDropdown.Item>
               <NavDropdown.Item href="/Cipo">Cipők</NavDropdown.Item>
               <NavDropdown.Item eventKey="disabled" disabled href="/Kiegeszitok">Kiegeszitők</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Nav>
-            <NavDropdown title="Profil" id="collasible-nav-dropdown">
+            <NavDropdown title="Profil" id="prof">
+            <NavDropdown.Item onClick={logout}>Kijelentkezés</NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="/Bejelentkezes">Bejelentkezés</Nav.Link>
-            <Nav.Link eventKey={2} href="/Regisztracio">Regisztráció</Nav.Link>
+            <Nav.Link id="bejelentkezes_nav" href="/Bejelentkezes">Bejelentkezés</Nav.Link>
+            <Nav.Link id="reg_nav" eventKey={2} href="/Regisztracio">Regisztráció</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

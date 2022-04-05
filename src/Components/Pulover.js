@@ -10,8 +10,30 @@ import {useState, useEffect} from "react";
 
 
 
-
 function Pulover() {
+  const [admin, setAdmin] = useState(false);
+
+  useEffect(()=>{
+    const userinfo=localStorage.getItem("userinfo");
+    var data=JSON.parse(userinfo);
+    
+    if(userinfo){
+    if(data.isAdmin){
+      
+     setAdmin(true)
+      
+     
+    }
+    else{
+      
+      setAdmin(false)
+    }
+  }
+    
+    
+    
+   
+  },[]);
   const [kep, setkep]=useState([])
  useEffect(()=>{
   axios({
@@ -50,7 +72,11 @@ function Pulover() {
               })}
               </Form.Select>
               <Button id="btn_Pulcsi" variant="dark">Rendelés</Button>
+             
             </Card.Body>
+            <Button style={{
+          display: admin ? '' : 'none',
+        }} className="bg-danger" id="btn_Pulcsi_del">Törlés</Button>
           </Card>
             <br />
           </div>

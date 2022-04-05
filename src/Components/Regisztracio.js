@@ -1,18 +1,37 @@
 import { useState } from 'react';
 import '../Css/Regisztracio.css';
+import axios from 'axios';
+import Loading from './Loading';
+
 export default function Regisztracio() {
 
   // jó
-  const [name, setName] = useState('');
+  const [nev, setNev] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [jelszo, setJelszo] = useState('');
+  const [cim, setCim] = useState('');
+  const [felhasznalonev, setFelhasznalonev] = useState('');
+  const [Confpassword, setConfpassword] = useState('');
+  const [loading, setLoading] = useState('');
+
+  
 
   //rossz
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
 
   const handleName = (e) => {
-    setName(e.target.value);
+    setNev(e.target.value);
+    setSubmitted(false);
+  };
+
+  const handlefName = (e) => {
+    setFelhasznalonev(e.target.value);
+    setSubmitted(false);
+  };
+
+  const handleAddress = (e) => {
+    setCim(e.target.value);
     setSubmitted(false);
   };
 
@@ -22,16 +41,53 @@ export default function Regisztracio() {
   };
 
   const handlePassword = (e) => {
-    setPassword(e.target.value);
+    setJelszo(e.target.value);
+    setSubmitted(false);
+  };
+  const handleConfPassword = (e) => {
+    setConfpassword(e.target.value);
     setSubmitted(false);
   };
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (name === '' || email === '' || password === '') {
+    if (nev === '' || email === '' || jelszo === ''||felhasznalonev===''|| cim===''||Confpassword==='') {
+     
       setError(true);
+      return;
     } else {
+      if (jelszo!==Confpassword) {
+        
+        setError(true);
+        return;
+      }
+      
+      try {
+        const config={
+          headers:{
+            "Content-type":"application/json"
+          }
+        }
+        setLoading(true)
+        const {data}=await axios.post('http://localhost:5501/felhasznalo',{
+          nev,cim,felhasznalonev,jelszo,email
+        },config)
+    
+  
+  setError(false)
+  alert(data.uzenet)
+  window.location.assign("/Bejelentkezes")
+        
+      } catch (error) {
+        
+        setError(true)
+        
+        
+        
+      }
+      setLoading(false)
+
       setSubmitted(true);
       setError(false);
     }
@@ -41,11 +97,11 @@ export default function Regisztracio() {
   const successMessage = () => {
     return (
       <div
-        className="success"
+        className="bg-success text-light"
         style={{
           display: submitted ? '' : 'none',
         }}>
-        <h2>{name}  sikeresen regisztrálva!</h2>
+        <h2>{nev}  sikeresen regisztrálva!</h2>
       </div>
     );
   };
@@ -54,11 +110,11 @@ export default function Regisztracio() {
   const errorMessage = () => {
     return (
       <div
-        className="error"
+        className="bg-danger text-light"
         style={{
           display: error ? '' : 'none',
         }}>
-        <h1>Kérem az összes mezőt kitölteni!</h1>
+        <h1>A regisztráció meghiúsult, kérem ellenőrizze az adatokat!</h1>
       </div>
     );
   };
@@ -68,7 +124,7 @@ export default function Regisztracio() {
       <div>
         <h1>Regisztráció</h1>
       </div>
-
+      {loading && <Loading />}
       <div className="messages">
         {errorMessage()}
         {successMessage()}
@@ -77,7 +133,15 @@ export default function Regisztracio() {
       <form>
         <label className="label" >Név</label>
         <input placeholder='Név' onChange={handleName} className="input"
-          value={name} type="text" />
+          value={nev} type="text" />
+
+  <label className="label" >Cím</label>
+        <input placeholder='Cím' onChange={handleAddress} className="input"
+          value={cim} type="text" /> 
+
+<label className="label" >Felhasználónév</label>
+        <input placeholder='Felhasználónév' onChange={handlefName} className="input"
+          value={felhasznalonev} type="text" />
 
         <label className="label">Email</label>
         <input placeholder='Email' onChange={handleEmail} className="input"
@@ -85,7 +149,12 @@ export default function Regisztracio() {
 
         <label className="label">Jelszó</label>
         <input placeholder='Jelszó' onChange={handlePassword} className="input"
-          value={password} type="password" />
+          value={jelszo} type="password" />
+
+          
+        <label className="label">Jelszó megerősítése</label>
+        <input placeholder='Jelszó megerősítése' onChange={handleConfPassword} className="input"
+          value={Confpassword} type="password" />
       </form>
       <button onClick={handleSubmit} className="btn2" type="submit">
         Regisztráció

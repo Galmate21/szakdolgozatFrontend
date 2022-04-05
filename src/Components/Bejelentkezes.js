@@ -14,11 +14,13 @@ const Bejelentkezes=()=> {
   const [email, setEmail] = useState("");
   const [jelszo, setJelszo] = useState("");
   const [loading,setLoading]=useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(()=>{
     const userinfo=localStorage.getItem("userinfo");
     if(userinfo){
       window.location.assign("/");
+      
       
     }
    
@@ -32,7 +34,7 @@ const Bejelentkezes=()=> {
 
   const handleSubmit=async(e)=> {
     e.preventDefault();
-    console.log(email,jelszo);
+    
     try {
       const config={
         headers:{
@@ -43,20 +45,40 @@ const Bejelentkezes=()=> {
       const {data}=await axios.post('http://localhost:5501/felhasznalo/login',{
         email,jelszo
       },config)
-  console.log(data);
+  
 localStorage.setItem('userinfo',JSON.stringify(data))
+setError(false)
+window.location.assign("/")
       
     } catch (error) {
-      alert("Hibás név vagy jelszó!")
+      
+      setError(true)
+      
+      
+      
     }
     setLoading(false)
-    window.location.reload();
+    
   }
 
+  const errorMessage = () => {
+    return (
+      <div
+        className="bg-danger text-light text-center"
+        style={{
+          display: error ? '' : 'none',
+        }}>
+        <h1>Hibás email vagy jelszó!</h1>
+      </div>
+    );
+  };
+
+
+  
   return (
     <div className="Login" style={{ backgroundColor:"white"}}>
     
-      {loading && <Loading />}
+      {loading && <Loading />} {errorMessage()}
       <Form onSubmit={handleSubmit}>
         <Form.Group id="ep" size="md" controlId="email">
           <Form.Label>Email</Form.Label>
