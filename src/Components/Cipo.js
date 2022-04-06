@@ -52,7 +52,9 @@ function Cipo() {
       });
     }
 }
-
+function edit(id) {
+  window.location.assign("/szerkesztes/"+id)
+}
   return (
     <div className="Cipo">
       <h1 className="cimtermek">Cipők</h1>
@@ -80,7 +82,11 @@ function Cipo() {
             </Card.Body>
             <Button style={{
           display: admin ? '' : 'none',
-        }} className="bg-danger delete-product" onClick={deleteBtn} id="btn_nadrag_del" value={value._id}>Törlés</Button>
+        }} className="bg-danger delete-product" onClick={deleteBtn} id="btn_nadrag_del" value={value._id}>Törlés</Button><br />
+        
+        <Button style={{
+         display: admin ? '' : 'none',
+       }} className="bg-warning text-dark edit-product" key={value._id} onClick={() => edit(value._id)} id="btn_Pulcsi_edit" value={value._id}>Szerkesztés</Button>
           </Card>
               <br />
           </div>

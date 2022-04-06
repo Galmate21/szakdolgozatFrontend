@@ -64,7 +64,9 @@ function Kabat() {
         });
       }
   }
-   
+  function edit(id) {
+    window.location.assign("/szerkesztes/"+id)
+  }
 
   return (
     <div className="Kabat">
@@ -93,6 +95,11 @@ function Kabat() {
             <Button style={{
           display: admin ? '' : 'none',
         }} className="bg-danger delete-product" onclick={deleteBtn} id="btn_kabat_del" value={value._id}>Törlés</Button>
+        <br />
+        
+        <Button style={{
+         display: admin ? '' : 'none',
+       }} className="bg-warning text-dark edit-product" key={value._id} onClick={() => edit(value._id)} id="btn_Pulcsi_edit" value={value._id}>Szerkesztés</Button>
           </Card>
               <br />
           </div>

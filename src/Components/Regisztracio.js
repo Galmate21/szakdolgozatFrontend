@@ -57,7 +57,7 @@ export default function Regisztracio() {
       setError(true);
       return;
     } else {
-      if (jelszo!==Confpassword) {
+      if (jelszo!==Confpassword||jelszo.length<8) {
         
         setError(true);
         return;
