@@ -1,4 +1,4 @@
-import { Card, Row, Button, Col, Form } from "react-bootstrap";
+import { Card, Row, Button, Form } from "react-bootstrap";
 import "../Css/Polo.css";
 import axios from 'axios';
 import {useState, useEffect} from "react";
@@ -9,6 +9,27 @@ import {useState, useEffect} from "react";
 
 function Polo() {
   const [kep, setkep]=useState([])
+  const [admin, setAdmin] = useState(false);
+  
+
+  useEffect(()=>{
+    const userinfo=localStorage.getItem("userinfo");
+    var data=JSON.parse(userinfo);
+    
+    if(userinfo){
+    if(data.isAdmin){
+      
+     setAdmin(true)
+    }
+    else{
+      
+      setAdmin(false)
+    }
+  }
+    
+   
+  },[]);
+
   useEffect(()=>{
    axios({
      method: 'get',
@@ -21,13 +42,30 @@ function Polo() {
      });
   },[])
 
+  
+  
+    async function deleteBtn (event) {
+      var id = event.target.value;
+      if (window.confirm("Biztos törlöd a terméket?")){
+      axios({
+        method: 'delete',
+        url: `http://localhost:5501/termekek/${id}`,
+        responseType: 'stream'
+      })
+        .then((response)=> {
+          alert(JSON.stringify(response.data)+" Sikeresen törölve!")
+          window.location.reload();
+        });
+      }
+  }
+   
   return (
     <div>
       <h1 className="cimtermek">Pólók</h1>
       <Row xs={1} md={4} className="g-4">
       
  {kep.map((value)=>{
-     if(value.Tipus=="Póló"){
+     if(value.Tipus==="Póló"){
       return(
         <div>
           <Card border="dark">
@@ -47,6 +85,9 @@ function Polo() {
               <br />
               <Button id="btn_polo" variant="dark">Rendelés</Button>
             </Card.Body>
+            <Button style={{
+          display: admin ? '' : 'none',
+        }} className="bg-danger delete-product" onClick={deleteBtn} id="btn_polo_del" value={value._id}>Törlés</Button>
           </Card>
           <br />
         

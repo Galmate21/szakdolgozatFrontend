@@ -1,6 +1,6 @@
-import { Card, Row, Button, Col, Form } from "react-bootstrap";
+import { Card, Row, Button, Form } from "react-bootstrap";
 import "../Css/Pulcsi.css";
-
+import { NavLink } from "react-router-dom";
 import axios from 'axios';
 
 import {useState, useEffect} from "react";
@@ -12,6 +12,7 @@ import {useState, useEffect} from "react";
 
 function Pulover() {
   const [admin, setAdmin] = useState(false);
+  
 
   useEffect(()=>{
     const userinfo=localStorage.getItem("userinfo");
@@ -39,22 +40,41 @@ function Pulover() {
   axios({
     method: 'get',
     url: 'http://localhost:5501/termekek',
-    responseType: 'stream'
+    responseType: 'json'
   })
     .then((response)=> {
       setkep(response.data)
       
     });
  },[])
-  
 
+async function deleteBtn (event) {
+          var id = event.target.value;
+          
+          if (window.confirm("Biztos törlöd a terméket?")){
+          axios({
+            method: 'delete',
+            url: `http://localhost:5501/termekek/${id}`,
+            responseType: 'json'
+          })
+            .then((response)=> {
+              alert(JSON.stringify(response.data)+" Sikeresen törölve!")
+              window.location.reload();
+            });
+          }
+          
+      }
+       
+      function edit(id) {
+        window.location.assign("/szerkesztes/"+id)
+      }
   return (
     <div>
       <h1 className="cimtermek">Pulóverek</h1>
       <Row xs={1} md={3} className="g-4" >
       
  {kep.map((value)=>{
-     if(value.Tipus=="Pulóver"){
+     if(value.Tipus==="Pulóver"){
       return(
         <div >
           <Card border="dark">
@@ -76,11 +96,15 @@ function Pulover() {
             </Card.Body>
             <Button style={{
           display: admin ? '' : 'none',
-        }} className="bg-danger" id="btn_Pulcsi_del">Törlés</Button>
+        }} className="bg-danger delete-product" onClick={deleteBtn} id="btn_Pulcsi_del" value={value._id}>Törlés</Button><br />
+        
+         <Button style={{
+          display: admin ? '' : 'none',
+        }} className="bg-warning text-dark edit-product" key={value._id} onClick={() => edit(value._id)} id="btn_Pulcsi_edit" value={value._id}>Szerkesztés</Button>
           </Card>
             <br />
           </div>
-    
+     
      )
     }
     
@@ -90,7 +114,10 @@ function Pulover() {
     </Row>
     </div>
     
+      
+    
   );
+  
 }
 
 export default Pulover;

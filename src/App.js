@@ -12,7 +12,7 @@ import Kabat from './Components/Kabat';
 import Cipo from './Components/Cipo';
 import Kiegeszitok from './Components/Kiegeszitok';
 import Errorpage from './Components/Errorpage';
-
+import Szerkesztes from './Components/Szerkesztes';
 
 
 function App() {
@@ -30,6 +30,7 @@ function App() {
           <Route path='/Polo' element={<Polo />} />
           <Route path='/Kabat' element={<Kabat />} />
           <Route path='/Cipo' element={<Cipo />} />
+          <Route path="/szerkesztes/:termekId" element={<Szerkesztes/>}></Route>
           <Route path='/kiegeszitok' element={<Kiegeszitok />} />
           <Route path="*" element={<Errorpage/>} />
         </Routes>

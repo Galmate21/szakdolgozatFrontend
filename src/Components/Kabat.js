@@ -1,5 +1,5 @@
 import "../Css/Kabat.css";
-import { Card, Row, Col, Button, Form } from "react-bootstrap";
+import { Card, Row, Button, Form } from "react-bootstrap";
 import axios from 'axios';
 import {useState, useEffect} from "react";
 
@@ -7,7 +7,33 @@ import {useState, useEffect} from "react";
 
 
 function Kabat() {
+
   const [kep, setkep]=useState([])
+  const [admin, setAdmin] = useState(false);
+  
+
+  useEffect(()=>{
+    const userinfo=localStorage.getItem("userinfo");
+    var data=JSON.parse(userinfo);
+    
+    if(userinfo){
+    if(data.isAdmin){
+      
+     setAdmin(true)
+      
+     
+    }
+    else{
+      
+      setAdmin(false)
+    }
+  }
+    
+    
+    
+   
+  },[]);
+  
   useEffect(()=>{
    axios({
      method: 'get',
@@ -20,12 +46,32 @@ function Kabat() {
      });
   },[])
 
+  
+  
+    async function deleteBtn (event) {
+      
+      var id = event.target.value;
+      
+      if (window.confirm("Biztos törlöd a terméket?")){
+      axios({
+        method: 'delete',
+        url: `http://localhost:5501/termekek/${id}`,
+        responseType: 'stream'
+      })
+        .then((response)=> {
+          alert(JSON.stringify(response.data)+" Sikeresen törölve!")
+          window.location.reload();
+        });
+      }
+  }
+   
+
   return (
     <div className="Kabat">
       <h1 className="cimtermek">Kabátok</h1>
       <Row xs={1} md={4} className="g-4">
     {kep.map((value)=>{
-     if(value.Tipus=="Kabát"){
+     if(value.Tipus==="Kabát"){
       return(
         <div>
           <Card border="dark">
@@ -44,6 +90,9 @@ function Kabat() {
               </Form.Select>
               <Button id="btn_nadrag" variant="dark">Rendelés</Button>
             </Card.Body>
+            <Button style={{
+          display: admin ? '' : 'none',
+        }} className="bg-danger delete-product" onclick={deleteBtn} id="btn_kabat_del" value={value._id}>Törlés</Button>
           </Card>
               <br />
           </div>
