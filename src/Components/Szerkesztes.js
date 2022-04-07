@@ -12,6 +12,9 @@ function Szerkesztes(props) {
     const [Tipus, setTipus] = useState("");
     const [link, setlink] = useState("");
     const [meret,setMeret]=useState([]);
+    const [ujmeret,setUjmeret]=useState("");
+    const [meretTipus,setMeretTipus]=useState(false);
+
 
     
   useEffect(()=>{
@@ -43,6 +46,10 @@ function Szerkesztes(props) {
            setTipus(response.data.Tipus)
            setlink(response.data.link)
            setMeret(response.data.meret)
+           if (response.data.Tipus==="Nadrág"||response.data.Tipus==="Cipő") {
+             setMeretTipus(true)
+             
+           }
             
           });
        },[])
@@ -89,9 +96,23 @@ function Szerkesztes(props) {
       }
     }
 
-    function delMeret(meret){
-      alert(meret)
+    const delMeret = (item) => {
+      setMeret((prevState) =>
+        prevState.filter((prevItem) => prevItem !== item)
+      );
+     
+    };
+
+    const meretHozzaadas=function(){
+      if (meret.includes(ujmeret)) {
+        return;
+      }
+      const ujLista=meret.concat(ujmeret).sort();
+      setMeret(ujLista)
+      
+      
     }
+    
     
     return (
         <div>
@@ -99,7 +120,7 @@ function Szerkesztes(props) {
           <Form onSubmit={handleSubmit}>
           <img style={{height:"350px",width:"350px"}} alt='' src={link}/>
           <p className='text-secondary'>Termékazonosító: {id}</p>
-        <Form.Group id="ep" size="md" controlId="email">
+        <Form.Group id="ep" size="md" controlId="termekNev">
           <Form.Label>Termék:</Form.Label>
           <Form.Control
             autoFocus
@@ -109,7 +130,7 @@ function Szerkesztes(props) {
             onChange={(e) => setTermekNev(e.target.value)}
           />
         </Form.Group>
-        <Form.Group id="ep" size="md" controlId="email">
+        <Form.Group id="ep" size="md" controlId="Ar">
           <Form.Label>Ár:</Form.Label>
           <Form.Control
             autoFocus
@@ -119,11 +140,26 @@ function Szerkesztes(props) {
             onChange={(e) => setAr(e.target.value)}
           />
         </Form.Group>
+        <Form.Group id="ep" size="md" controlId="meret">
         <Form.Label>Méretek:</Form.Label>
-        {meret.map((m)=>{
-          return(<div>{m} <CloseButton className='' size="sm" onClick={() =>delMeret(m)}> </CloseButton></div>)
-        })}
-        <Form.Group id="ep" size="md" controlId="email">
+        {meret.map((m,index)=>{
+          
+          return(<div>{m} <CloseButton className='' key={index} size="sm" onClick={() =>delMeret(m)}> </CloseButton></div>)
+        })
+        }
+        <br />
+        <Form.Control
+            autoFocus
+            placeholder="Új méret hozzáadása pl. S vagy cipő eseték 42"
+            type={meretTipus ? "number":"text"}
+            value={ujmeret}
+            onChange={(e) => setUjmeret(e.target.value)}
+          />
+   
+          <br />
+          <Button size="sm" onClick={meretHozzaadas}>Hozzáadás</Button>
+        </Form.Group>
+        <Form.Group id="ep" size="md" controlId="Tipus">
           <Form.Label>Típus:</Form.Label>
           <Form.Control
             autoFocus

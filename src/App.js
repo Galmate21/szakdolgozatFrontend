@@ -13,7 +13,8 @@ import Cipo from './Components/Cipo';
 import Kiegeszitok from './Components/Kiegeszitok';
 import Errorpage from './Components/Errorpage';
 import Szerkesztes from './Components/Szerkesztes';
-
+import Uj from './Components/Uj';
+import Felhasznalok from './Components/Felhasznalok';
 
 function App() {
   return (
@@ -30,7 +31,9 @@ function App() {
           <Route path='/Polo' element={<Polo />} />
           <Route path='/Kabat' element={<Kabat />} />
           <Route path='/Cipo' element={<Cipo />} />
+          <Route path='/felhasznalok' element={<Felhasznalok />} />
           <Route path="/szerkesztes/:termekId" element={<Szerkesztes/>}></Route>
+          <Route path="/uj" element={<Uj/>}></Route>
           <Route path='/kiegeszitok' element={<Kiegeszitok />} />
           <Route path="*" element={<Errorpage/>} />
         </Routes>

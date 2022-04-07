@@ -80,6 +80,7 @@ function Polo() {
               </Card.Text>
               <Form.Select aria-label="Default select example">
               <option>Válasz méretet</option>
+              
               {value.meret.map((meret)=>{
                 return(<option value={meret}>{meret}</option>)
               })}
