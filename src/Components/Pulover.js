@@ -1,6 +1,7 @@
 import { Card, Row, Button, Form } from "react-bootstrap";
 import "../Css/Pulcsi.css";
 
+
 import axios from 'axios';
 
 import {useState, useEffect} from "react";
@@ -12,8 +13,11 @@ import {useState, useEffect} from "react";
 
 function Pulover() {
   const [admin, setAdmin] = useState(false);
+  const [meret,setMeret]=useState([])
+  const [ujmeret,setujMeret]=useState("")
   
 
+  
   useEffect(()=>{
     const userinfo=localStorage.getItem("userinfo");
     var data=JSON.parse(userinfo);
@@ -22,7 +26,6 @@ function Pulover() {
     if(data.isAdmin){
       
      setAdmin(true)
-      
      
     }
     else{
@@ -68,6 +71,26 @@ async function deleteBtn (event) {
       function edit(id) {
         window.location.assign("/szerkesztes/"+id)
       }
+
+      const kosarhoz=function(id){
+        const cart=localStorage.getItem('cart')
+        var cartData=JSON.parse(cart);
+        
+        const item={id:id,meret:ujmeret}
+        if (id) {
+          console.log("Vagyok");
+        }
+        
+       
+        const ujLista=meret.concat(item)
+        setMeret(ujLista)
+        localStorage.setItem("cart",JSON.stringify(ujLista))
+        
+         
+        
+      }
+
+     
   return (
     <div>
       <h1 className="cimtermek">Pulóverek</h1>
@@ -85,13 +108,13 @@ async function deleteBtn (event) {
                 Férfi
                 <h6>{value.Ar} Ft</h6>
               </Card.Text>
-              <Form.Select aria-label="Default select example">
+              <Form.Select onChange={(e)=>setujMeret(e.target.value)} aria-label="Default select example">
               <option>Válasz méretet</option>
               {value.meret.map((meret)=>{
                 return(<option value={meret}>{meret}</option>)
               })}
               </Form.Select>
-              <Button id="btn_Pulcsi" variant="dark">Rendelés</Button>
+              <Button id="btn_Pulcsi"  onClick={() => kosarhoz(value._id)} variant="dark">Rendelés</Button>
              
             </Card.Body>
             <Button style={{
