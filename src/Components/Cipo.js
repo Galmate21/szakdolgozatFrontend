@@ -2,12 +2,26 @@ import "../Css/Cipo.css";
 import { Card, Button, Form, Row } from "react-bootstrap";
 import axios from 'axios';
 import {useState, useEffect} from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Cipo() {
 
   const [kep, setkep]=useState([])
   const [admin, setAdmin] = useState(false);
-  
+  const [kosartart,setkosartart]=useState([])
+  const [ujmeret,setujMeret]=useState("")
+
+  useEffect(()=>{
+    const cartItem=JSON.parse(localStorage.getItem('cart'))
+    if(cartItem){
+      setkosartart(cartItem)
+    }
+   
+
+  },[])
+
 
   useEffect(()=>{
     const userinfo=localStorage.getItem("userinfo");
@@ -30,7 +44,7 @@ function Cipo() {
    axios({
      method: 'get',
      url: 'http://localhost:5501/termekek',
-     responseType: 'stream'
+     responseType: 'json'
    })
      .then((response)=> {
        setkep(response.data)
@@ -55,8 +69,42 @@ function Cipo() {
 function edit(id) {
   window.location.assign("/szerkesztes/"+id)
 }
+
+const kosarhoz=function(id,ar){
+  var items = JSON.parse(localStorage.getItem('cart')) || [];
+  var item = items.find(item => item.termekId === id&&item.meret===ujmeret);
+
+  if (item) {
+    item.mennyiseg += 1;
+    toast.info("Termék mennyiségének növelése", {
+      position: "bottom-left"})
+    
+  }else{
+    items.push({
+      termekId:id,
+      meret:ujmeret,
+      mennyiseg:1,
+      Ar:ar
+    })
+    toast.success("Termék hozzáadása a kosárhoz", {
+      position: "bottom-left"
+    }); 
+    
+  }
+ 
+  localStorage.setItem('cart', JSON.stringify(items));
+  setkosartart(items)
+ 
+}  
   return (
     <div className="Cipo">
+      <Button style={{marginLeft:"15px",marginTop:"5px",fontSize:"25px",backgroundColor:"lightgray",borderRadius:"50%"}}>
+      
+           <svg style={{backgroundColor:"lightgray",borderRadius:"30%"}} xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" className="bi bi-cart3" viewBox="0 0 16 16">
+  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+</svg>
+<span style={{backgroundColor:"", width:"20px",height:"20px",borderRadius:"50%"}}>{kosartart.length}</span>
+</Button>
       <h1 className="cimtermek">Cipők</h1>
       <Row xs={1} md={3} className="g-4">
         
@@ -72,13 +120,13 @@ function edit(id) {
                 Férfi
                 <h6>{value.Ar} Ft</h6>
               </Card.Text>
-              <Form.Select aria-label="Default select example">
+              <Form.Select onChange={(e)=>setujMeret(e.target.value)} aria-label="Default select example">
               <option>Válasz méretet</option>
               {value.meret.map((meret)=>{
                 return(<option value={meret}>{meret}</option>)
               })}
               </Form.Select>
-              <Button id="btn_cipo" variant="dark">Rendelés</Button>
+              <Button id="btn_cipo" onClick={() => kosarhoz(value._id,value.Ar)} variant="dark">Rendelés</Button>
             </Card.Body>
             <Button style={{
           display: admin ? '' : 'none',
@@ -98,6 +146,7 @@ function edit(id) {
  })}
  
     </Row>
+    <ToastContainer />
     </div>
 
   )}
