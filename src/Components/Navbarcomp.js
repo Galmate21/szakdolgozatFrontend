@@ -62,7 +62,7 @@ const profilIcon=<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link></Nav.Link>
+           
             <Nav.Link href="/">Főoldal</Nav.Link>
             <Nav.Link href="/Informacio">Információ</Nav.Link>
             <Nav.Link style={{

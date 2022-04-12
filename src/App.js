@@ -15,6 +15,7 @@ import Errorpage from './Components/Errorpage';
 import Szerkesztes from './Components/Szerkesztes';
 import Uj from './Components/Uj';
 import Felhasznalok from './Components/Felhasznalok';
+import Cart from './Components/Cart';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/uj" element={<Uj/>}></Route>
           <Route path='/kiegeszitok' element={<Kiegeszitok />} />
           <Route path="*" element={<Errorpage/>} />
+          <Route path="/kosar" element={<Cart/>} />
         </Routes>
       </div>
 
