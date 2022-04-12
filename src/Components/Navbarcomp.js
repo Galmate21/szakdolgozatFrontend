@@ -34,6 +34,9 @@ function Navbarcomps() {
    
   },[]);
 
+
+ 
+
   function logout(){
     localStorage.removeItem("userinfo");
     alert("Sikeres kijelentkezés!")

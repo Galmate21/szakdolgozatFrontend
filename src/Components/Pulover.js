@@ -13,10 +13,10 @@ import {useState, useEffect} from "react";
 
 function Pulover() {
   const [admin, setAdmin] = useState(false);
-  const [meret,setMeret]=useState([])
+  
   const [ujmeret,setujMeret]=useState("")
   
-
+  
   
   useEffect(()=>{
     const userinfo=localStorage.getItem("userinfo");
@@ -47,7 +47,7 @@ function Pulover() {
   })
     .then((response)=> {
       setkep(response.data)
-      
+     
     });
  },[])
 
@@ -72,20 +72,24 @@ async function deleteBtn (event) {
         window.location.assign("/szerkesztes/"+id)
       }
 
-      const kosarhoz=function(id){
-        const cart=localStorage.getItem('cart')
-        var cartData=JSON.parse(cart);
-        
-        const item={id:id,meret:ujmeret}
-        if (id) {
-          console.log("Vagyok");
+      const kosarhoz=function(id,ar){
+        var items = JSON.parse(localStorage.getItem('cart')) || [];
+        var item = items.find(item => item.termekId === id&&item.meret===ujmeret);
+
+        if (item) {
+          item.mennyiseg += 1;
+          
+        }else{
+          items.push({
+            termekId:id,
+            meret:ujmeret,
+            mennyiseg:1,
+            Ar:ar
+          })
         }
-        
        
-        const ujLista=meret.concat(item)
-        setMeret(ujLista)
-        localStorage.setItem("cart",JSON.stringify(ujLista))
-        
+        localStorage.setItem('cart', JSON.stringify(items));
+ 
          
         
       }
@@ -114,7 +118,7 @@ async function deleteBtn (event) {
                 return(<option value={meret}>{meret}</option>)
               })}
               </Form.Select>
-              <Button id="btn_Pulcsi"  onClick={() => kosarhoz(value._id)} variant="dark">Rendelés</Button>
+              <Button id="btn_Pulcsi"  onClick={() => kosarhoz(value._id,value.Ar)} variant="dark">Rendelés</Button>
              
             </Card.Body>
             <Button style={{
