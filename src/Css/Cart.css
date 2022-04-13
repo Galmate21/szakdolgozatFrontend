@@ -1,0 +1,16 @@
+.cart-container{
+    padding: 70px 0;
+  
+  text-align: center;
+
+}
+h3{
+    text-align: right;
+    margin-right: 35px;
+}
+
+.rendeles_gomb{
+    margin-left: 15px;
+    margin-bottom: 15px;
+   
+}

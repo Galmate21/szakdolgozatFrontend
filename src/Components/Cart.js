@@ -1,8 +1,8 @@
 import React from 'react'
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-import {Table,Button} from "react-bootstrap";
-
+import {Table,Button,Nav} from "react-bootstrap";
+import '../Css/Cart.css'
 
 
 
@@ -35,32 +35,48 @@ function Cart() {
               
             });
       },[])
+const novel=(i)=>{
+  kosar[i].mennyiseg=kosar[i].mennyiseg+1
+  
+  setkosar([...kosar])
+  localStorage.setItem('cart',JSON.stringify(kosar))
+}
 
+const csokkent=(i)=>{
+  kosar[i].mennyiseg=kosar[i].mennyiseg-1
+  
+  setkosar([...kosar])
+  localStorage.setItem('cart',JSON.stringify(kosar))
+}
      
 
   return (
     <div>
+         
          <Table striped bordered hover>
                         
         <h2>{ures}</h2>
-         {kosar.map((value)=>{
+         {kosar.map((value,key)=>{
              return(
              termek.map((t)=>{
                  if(value.termekId===t._id){
                     osszeg+=value.mennyiseg*t.Ar
+                    
                      return(
                         
-                        <tbody>
+                        <tbody className="cart-container">
                           <tr>
                             
-                            <td><img src={t.link} style={{width:"100px",height:"100px"}} alt={t.link} /></td>
-                            <td>{t.termekNev}</td>
-                            <td>{value.meret}</td>
-                            <td>{value.mennyiseg}</td>
-                            <td>x</td>
-                            <td>{t.Ar} Ft</td>
+                            <td><img src={t.link} style={{width:"100px",height:"100px",border:"solid 1px black"}} alt={t.link} /></td>
+                            <td style={{padding:"35px"}}><b>{t.termekNev}</b></td>
+                            <td style={{fontStyle:"italic",padding:"35px"}}>{value.meret}</td>
+                            <td key={key} onClick={()=>novel(key)} style={{padding:"35px"}}><b>+</b></td>
+                            <td style={{padding:"35px"}}>{value.mennyiseg} </td>
+                            <td onClick={()=>csokkent(key)} style={{padding:"35px"}}><b>-</b></td>
+                            <td style={{padding:"35px"}}><b>x</b></td>
+                            <td style={{textAlign:"left",padding:"35px"}}>{t.Ar} Ft</td>
                           </tr>
-                          
+                         
                         </tbody>
                      
                    )
@@ -71,8 +87,12 @@ function Cart() {
             }))
          })}
           </Table>
-          <h1>Összeg: {osszeg} Ft</h1>
-          <Button>Hozzáadás</Button>
+         
+        <h3>Összeg: {osszeg} Ft</h3>
+        <Button className="vissza" style={{backgroundColor:"white", borderColor:'white',color:'blue',float:'right'}}  onClick={() => window.history.back()} className="vissza">Vásárlás folytatása</Button>
+        
+         
+          <Button className="rendeles_gomb">Hozzáadás</Button>
     </div>
   )
 }
