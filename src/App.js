@@ -16,6 +16,7 @@ import Szerkesztes from './Components/Szerkesztes';
 import Uj from './Components/Uj';
 import Felhasznalok from './Components/Felhasznalok';
 import Cart from './Components/Cart';
+import Profil from './Components/Profil';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route path='/kiegeszitok' element={<Kiegeszitok />} />
           <Route path="*" element={<Errorpage/>} />
           <Route path="/kosar" element={<Cart/>} />
+          <Route path='/Profil' element={<Profil />} />
         </Routes>
       </div>
 

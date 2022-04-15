@@ -131,7 +131,7 @@ function Nadrag() {
       return(
         <div>
           <Card border="dark">
-            <Card.Img variant="top" className="img-thumbnail" style={{height:"500px"}} img src={value.link} />
+            <Card.Img variant="top" className="img-thumbnail" style={{height:"500px"}} src={value.link} />
             <Card.Body>
               <Card.Title><p>{value.termekNev}</p></Card.Title>
               <Card.Text>

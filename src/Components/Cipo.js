@@ -121,7 +121,7 @@ const kosarhoz=function(id,ar){
       return(
         <div>
           <Card border="dark">
-            <Card.Img variant="top" className="img-thumbnail"  img src={value.link} />
+            <Card.Img variant="top" className="img-thumbnail"  src={value.link} />
             <Card.Body>
               <Card.Title><p>{value.termekNev}</p></Card.Title>
               <Card.Text>

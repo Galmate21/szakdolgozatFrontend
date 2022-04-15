@@ -82,7 +82,7 @@ const profilIcon=<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
           </Nav>
           <Nav>
             <NavDropdown title={profilIcon} id="prof">
-            <NavDropdown.Item ><b>Bejelentkezve:</b><br /> {udv.nev}</NavDropdown.Item>
+            <NavDropdown.Item href="/Profil"><b>Bejelentkezve:</b><br /> {udv.nev}</NavDropdown.Item>
             <NavDropdown.Item onClick={logout}>Kijelentkezés</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link id="bejelentkezes_nav" href="/Bejelentkezes">Bejelentkezés</Nav.Link>

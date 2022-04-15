@@ -46,7 +46,7 @@ function Polo() {
    axios({
      method: 'get',
      url: 'http://localhost:5501/termekek',
-     responseType: 'stream'
+     responseType: 'json'
    })
      .then((response)=> {
        setkep(response.data)
@@ -62,7 +62,7 @@ function Polo() {
       axios({
         method: 'delete',
         url: `http://localhost:5501/termekek/${id}`,
-        responseType: 'stream'
+        responseType: 'json'
       })
         .then((response)=> {
           alert(JSON.stringify(response.data)+" Sikeresen törölve!")
@@ -122,12 +122,12 @@ function Polo() {
       <h1 className="cimtermek">Pólók</h1>
       <Row xs={1} md={4} className="g-4">
       
- {kep.map((value)=>{
+ {kep.map((value,i)=>{
      if(value.Tipus==="Póló"){
       return(
-        <div>
+        <div >
           <Card border="dark">
-            <Card.Img variant="top" className="img-thumbnail" style={{height:"450px"}} img src={value.link} />
+            <Card.Img variant="top" className="img-thumbnail" style={{height:"450px"}} src={value.link} />
             <Card.Body>
               <Card.Title><p>{value.termekNev}</p></Card.Title>
               <Card.Text>
