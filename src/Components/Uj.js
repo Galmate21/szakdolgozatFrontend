@@ -141,7 +141,7 @@ function Uj() {
     type="file"
      />
   </Form.Group>
-  <Button type="submit">Feltöltés</Button>
+  <Button type="submit">Termék hozzáadása</Button>
 
                 </Form>
             </Row>

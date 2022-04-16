@@ -68,6 +68,9 @@ const profilIcon=<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
             <Nav.Link style={{
           display: admin ? '' : 'none',
         }} href="/felhasznalok">Felhasználók kezelése</Nav.Link>
+        <Nav.Link style={{
+          display: admin ? '' : 'none',
+        }} href="/Megrendelesek">Megrendelések</Nav.Link>
             <NavDropdown title="Termékek" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/Pulover">Pulóverek</NavDropdown.Item>
               <NavDropdown.Item href="/Nadrag">Nadrágok</NavDropdown.Item>
@@ -83,6 +86,7 @@ const profilIcon=<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
           <Nav>
             <NavDropdown title={profilIcon} id="prof">
             <NavDropdown.Item href="/Profil"><b>Bejelentkezve:</b><br /> {udv.nev}</NavDropdown.Item>
+            <NavDropdown.Item href="/rendelesek">Rendelési előzmények</NavDropdown.Item>
             <NavDropdown.Item onClick={logout}>Kijelentkezés</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link id="bejelentkezes_nav" href="/Bejelentkezes">Bejelentkezés</Nav.Link>

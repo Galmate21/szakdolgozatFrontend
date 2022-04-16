@@ -96,6 +96,7 @@ const rendelesFelvetel=async()=>{
     position: "bottom-left"
   }); 
   setures("A kosara jelenleg üres!")
+  setkosar([])
   setTimeout(function () {
     window.location.assign("/"); 
  }, 4000);

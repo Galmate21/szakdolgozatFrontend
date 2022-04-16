@@ -2,7 +2,7 @@ import React from 'react'
 import {useState,useEffect} from 'react';
 import axios from 'axios';
 import {Card, Row,Button} from 'react-bootstrap'
-import { log } from 'async';
+
 
 function Felhasznalok() {
 
@@ -55,7 +55,7 @@ function Felhasznalok() {
 
     async function jogemelesBtn (event) {
         var id = event.target.value;
-        if (window.confirm("Biztos jogosultságfosztást akar végzehajtani ezen a felhasználón?")){
+        if (window.confirm("Biztos jogosultságemelést akar végzehajtani ezen a felhasználón?")){
         axios({
           method: 'put',
           url: `http://localhost:5501/allapotfel/${id}`,
@@ -69,8 +69,9 @@ function Felhasznalok() {
     }
 
     async function jogfosztasBtn (event) {
+       
         var id = event.target.value;
-        if (window.confirm("Biztos jogosultságemelést akar végzehajtani ezen a felhasználón?")){
+        if (window.confirm("Biztos jogosultságfosztást akar végzehajtani ezen a felhasználón?")){
         axios({
           method: 'put',
           url: `http://localhost:5501/allapotle/${id}`,

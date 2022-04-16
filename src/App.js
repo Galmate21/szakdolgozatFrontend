@@ -17,6 +17,9 @@ import Uj from './Components/Uj';
 import Felhasznalok from './Components/Felhasznalok';
 import Cart from './Components/Cart';
 import Profil from './Components/Profil';
+import Megrendelesek from './Components/Megrendelesek';
+import Elozmeny from './Components/Elozmeny';
+
 
 function App() {
   return (
@@ -32,10 +35,12 @@ function App() {
           <Route path='/Pulover' element={<Pulover />} />
           <Route path='/Polo' element={<Polo />} />
           <Route path='/Kabat' element={<Kabat />} />
+          <Route path='/megrendelesek' element={<Megrendelesek />} />
           <Route path='/Cipo' element={<Cipo />} />
           <Route path='/felhasznalok' element={<Felhasznalok />} />
           <Route path="/szerkesztes/:termekId" element={<Szerkesztes/>}></Route>
           <Route path="/uj" element={<Uj/>}></Route>
+          <Route path="/rendelesek" element={<Elozmeny/>}></Route>
           <Route path='/kiegeszitok' element={<Kiegeszitok />} />
           <Route path="*" element={<Errorpage/>} />
           <Route path="/kosar" element={<Cart/>} />

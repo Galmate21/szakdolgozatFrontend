@@ -117,7 +117,7 @@ async function deleteBtn (event) {
        
         localStorage.setItem('cart', JSON.stringify(items));
         setkosartart(items)
-
+        setujMeret("")
         setTimeout(function () {
           window.location.assign("/kosar"); 
        }, 4000);
