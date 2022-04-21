@@ -207,6 +207,7 @@ function Profil() {
                         </Button>
                     </Modal.Footer>
                 </Modal>
+                
             </div>
             <ToastContainer />
         </div >
