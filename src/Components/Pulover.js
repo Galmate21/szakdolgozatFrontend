@@ -140,25 +140,25 @@ async function deleteBtn (event) {
 </Button></Nav.Link>
       <h1 className="cimtermek">Pulóverek</h1>
    
-      <Row xs={1} md={3} className="g-4" >
+      <Row xs={1} md={2} lg={3} className="g-4" >
       
- {kep.map((value)=>{
+ {kep.map((value,key)=>{
      if(value.Tipus==="Pulóver"){
       return(
-        <div >
+        <div key={key}>
           
           <Card key={value._id} border="dark">
-            <Card.Img variant="top" className="img-thumbnail" style={{height:"500px",width:"500px"}} src={value.link} />
+            <Card.Img variant="top" className="img-thumbnail" style={{height:"500px",width:"auto"}} src={value.link} />
             <Card.Body>
-              <Card.Title><p>{value.termekNev}</p></Card.Title>
+              <Card.Title>{value.termekNev}</Card.Title>
               <Card.Text>
-                Férfi
-                <h6>{value.Ar} Ft</h6>
+                Férfi <br />
+                <b>{value.Ar} Ft </b>
               </Card.Text>
               <Form.Select onChange={(e)=>setujMeret(e.target.value)} aria-label="Default select example">
               <option>Válasz méretet</option>
-              {value.meret.map((meret)=>{
-                return(<option value={meret}>{meret}</option>)
+              {value.meret.map((meret,i)=>{
+                return(<option key={i} value={meret}>{meret}</option>)
               })}
               </Form.Select>
               <Button id="btn_Pulcsi"  onClick={() => kosarhoz(value._id,value.Ar)} variant="dark">Rendelés</Button>

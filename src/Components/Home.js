@@ -59,21 +59,21 @@ function Home() {
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
-                    img src={Polo}
+                    src={Polo}
                     alt="Póló"
                   />
                 </Carousel.Item>
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
-                    img src={Pulover}
+                   src={Pulover}
                     alt="Pulóver"
                   />
                 </Carousel.Item>
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
-                    img src={Kiegeszitok}
+                     src={Kiegeszitok}
                     alt="Kiegészítők"
                   />
                 </Carousel.Item>
@@ -88,21 +88,21 @@ function Home() {
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
-                    img src={Nadrag}
+                    src={Nadrag}
                     alt="Nadrág"
                   />
                 </Carousel.Item>
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
-                    img src={fehCipo}
+                     src={fehCipo}
                     alt="Kabát"
                   />
                 </Carousel.Item>
                 <Carousel.Item>
                   <img
                     className="d-block w-100"
-                    img src={Kabat}
+                     src={Kabat}
                     alt="Kabát"
                   />
                 </Carousel.Item>

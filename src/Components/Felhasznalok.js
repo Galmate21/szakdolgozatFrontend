@@ -87,14 +87,14 @@ function Felhasznalok() {
         <div>
         <h1 className="cimtermek">Felhasználók</h1>
         <Row xs={1} md={3} className="g-4">
-        {felhasznalok.map((value)=>{
+        {felhasznalok.map((value, key)=>{
            
             if (value._id!=d._id) {
                 
             
             return(
-                <div>
-                    <Card className={value.isAdmin?"bg-danger":"bg-warning"} border="dark">
+                <div key={key}>
+                    <Card  className={value.isAdmin?"bg-danger":"bg-warning"} border="dark">
                         <Card.Body>
                         <Card.Text className="text-light"><b>Azonosító: {value._id}</b></Card.Text>
                             <Card.Title>{value.nev}</Card.Title>

@@ -144,7 +144,7 @@ function Szerkesztes(props) {
         <Form.Label>Méretek:</Form.Label>
         {meret.map((m,index)=>{
           
-          return(<div>{m} <CloseButton className='' key={index} size="sm" onClick={() =>delMeret(m)}> </CloseButton></div>)
+          return(<div key={index}>{m} <CloseButton className='' size="sm" onClick={() =>delMeret(m)}> </CloseButton></div>)
         })
         }
         <br />

@@ -114,24 +114,24 @@ const kosarhoz=function(id,ar){
 <span style={{backgroundColor:"", width:"20px",height:"20px",borderRadius:"50%"}}>{kosartart.length}</span>
 </Button></Nav.Link>
       <h1 className="cimtermek">Cipők</h1>
-      <Row xs={1} md={3} className="g-4">
+      <Row xs={1} sm={2} md={3} className="g-4">
         
-      {kep.map((value)=>{
+      {kep.map((value,key)=>{
      if(value.Tipus==="Cipő"){
       return(
-        <div>
+        <div key={key}>
           <Card border="dark">
             <Card.Img variant="top" className="img-thumbnail"  src={value.link} />
             <Card.Body>
               <Card.Title><p>{value.termekNev}</p></Card.Title>
               <Card.Text>
-                Férfi
-                <h6>{value.Ar} Ft</h6>
+                Férfi <br />
+                <b>{value.Ar} Ft</b>
               </Card.Text>
               <Form.Select onChange={(e)=>setujMeret(e.target.value)} aria-label="Default select example">
               <option>Válasz méretet</option>
-              {value.meret.map((meret)=>{
-                return(<option value={meret}>{meret}</option>)
+              {value.meret.map((meret,i)=>{
+                return(<option key={i} value={meret}>{meret}</option>)
               })}
               </Form.Select>
               <Button id="btn_cipo" onClick={() => kosarhoz(value._id,value.Ar)} variant="dark">Rendelés</Button>
@@ -142,7 +142,7 @@ const kosarhoz=function(id,ar){
         
         <Button style={{
          display: admin ? '' : 'none',
-       }} className="bg-warning text-dark edit-product" key={value._id} onClick={() => edit(value._id)} id="btn_Pulcsi_edit" value={value._id}>Szerkesztés</Button>
+       }} className="bg-warning text-dark edit-product"  onClick={() => edit(value._id)} id="btn_Pulcsi_edit" value={value._id}>Szerkesztés</Button>
           </Card>
               <br />
           </div>

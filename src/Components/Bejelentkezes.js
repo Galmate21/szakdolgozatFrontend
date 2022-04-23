@@ -121,7 +121,7 @@ window.location.assign("/")
             onChange={(e) => setJelszo(e.target.value)}
           />
         </Form.Group>
-        <Button id='btn_login' block size="md" type="submit" disabled={!validateForm()}>
+        <Button id='btn_login' size="md" type="submit" disabled={!validateForm()}>
           Bejelentkezés
         </Button>
 

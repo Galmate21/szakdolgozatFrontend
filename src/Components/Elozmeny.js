@@ -96,14 +96,14 @@ function Elozmeny() {
     return (
         <div>
         <h1 className="cimtermek">Megrendelések</h1>
-        <Row xs={1} md={3} className="g-4">
+        <Row xs={1} md={2} lg={3} className="g-4">
         {megrendelesek.map((value,key)=>{
            if(value.felhasznalo===loggeduser._id){
            
                 
             
             return(
-                <div>
+                <div key={key}>
                     <Card className={value.lezart?"bg-danger":value.aktiv?"bg-success":"bg-warning"} border="dark">
                         <Card.Body>
                         <Card.Text className="text-light"><b>Azonosító: {value._id}</b></Card.Text>
@@ -112,7 +112,7 @@ function Elozmeny() {
                             <Card.Text><b>Megrendelt termékek:</b></Card.Text>
                             {value.megrendelt_termekek.map((m,index)=>{
                               return(
-                                <div><p onClick={()=>termekModalShow(m.termekId,key,index)}>Termék azonosító: <i>{m.termekId}</i></p></div>
+                                <div key={index}><p onClick={()=>termekModalShow(m.termekId,key,index)}>Termék azonosító: <i>{m.termekId}</i></p></div>
                               )
                             })}
                             <Card.Text><i><b>Összeg: {value.osszeg} Ft</b></i></Card.Text>

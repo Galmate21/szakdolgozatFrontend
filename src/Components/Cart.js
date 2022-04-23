@@ -109,19 +109,19 @@ const rendelesFelvetel=async()=>{
 
   return (
     <div>
-         
+         <h2>{ures}</h2>
          <Table striped bordered hover>
                         
-        <h2>{ures}</h2>
+        
          {kosar.map((value,key)=>{
              return(
-             termek.map((t)=>{
+             termek.map((t,i)=>{
                  if(value.termekId===t._id){
                     osszeg+=value.mennyiseg*t.Ar
                     
                      return(
                         
-                        <tbody className="cart-container">
+                        <tbody key={i} className="cart-container">
                           <tr>
                             
                             <td><img src={t.link} style={{width:"100px",height:"100px",border:"solid 1px black"}} alt={t.link} /></td>
