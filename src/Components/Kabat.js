@@ -148,7 +148,7 @@ function Kabat() {
             </Card.Body>
             <Button style={{
           display: admin ? '' : 'none',
-        }} className="bg-danger delete-product" onclick={deleteBtn} id="btn_kabat_del" value={value._id}>Törlés</Button>
+        }} className="bg-danger delete-product" onClick={deleteBtn} id="btn_kabat_del" value={value._id}>Törlés</Button>
         <br />
         
         <Button style={{
