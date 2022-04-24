@@ -41,7 +41,7 @@ function Home() {
           </Button>
         </div>
       </Alert>
-      <Nav.Link href="/kosar">
+      <Nav.Link href="/kosar" style={{backgroundColor:"",width:"155px"}}>
 <Button style={{marginLeft:"15px",marginTop:"5px",fontSize:"25px",backgroundColor:"",borderRadius:"50%"}}>
       
       <svg style={{backgroundColor:"",borderRadius:"30%"}} xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" className="bi bi-cart3" viewBox="0 0 16 16">

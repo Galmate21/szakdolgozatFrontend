@@ -63,7 +63,14 @@ const Bejelentkezes=()=> {
   
 localStorage.setItem('userinfo',JSON.stringify(data))
 setError(false)
-window.location.assign("/")
+
+toast.success("Sikeres bejelentkezés!", {
+  position: "top-center"
+});
+setTimeout(function () {
+  window.location.assign("/"); 
+}, 2000);
+
       
     } catch (error) {
       
