@@ -7,15 +7,15 @@ import {Card, Row,Button} from 'react-bootstrap'
 function Felhasznalok() {
 
     const[felhasznalok,setFelhasznalok]=useState([])
-    const [admin,setAdmin]=useState(false)
-    const userinfo=localStorage.getItem("userinfo");
+    
+    const userinfo=JSON.parse(localStorage.getItem("userinfo"));
    
-    var d=JSON.parse(userinfo);
+    
   useEffect(()=>{
    
     if(userinfo){
-      if (d.isAdmin) {
-        setAdmin(true)
+      if (userinfo.isAdmin) {
+        
         return;
       }
       window.location.assign('/')
@@ -25,7 +25,7 @@ function Felhasznalok() {
      
     }
  
-  },[]);
+  },[userinfo]);
     useEffect(()=>{
         axios({
           method: 'get',
@@ -89,7 +89,7 @@ function Felhasznalok() {
         <Row xs={1} md={3} className="g-4">
         {felhasznalok.map((value, key)=>{
            
-            if (value._id!=d._id) {
+            if (value._id!==userinfo._id) {
                 
             
             return(
@@ -108,6 +108,9 @@ function Felhasznalok() {
                     </Card>
                 </div>
             )
+        }
+        else{
+          return("")
         }})}
     
         </Row>

@@ -30,7 +30,7 @@ function Elozmeny() {
     else{
         setloggeduser(JSON.parse(userinfo))
     }
-  },[]);
+  },[userinfo]);
     useEffect(()=>{
         axios({
           method: 'get',
@@ -165,6 +165,9 @@ function Elozmeny() {
                 </Modal>
                 </div>
             )
+ }
+ else{
+   return("");
  } })}
     
         </Row>

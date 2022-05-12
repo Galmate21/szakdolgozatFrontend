@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-import {Table,Button,Nav} from "react-bootstrap";
+import {Table,Button} from "react-bootstrap";
 import '../Css/Cart.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -83,7 +83,7 @@ const rendelesFelvetel=async()=>{
         "Content-type":"application/json"
       }
     }
-    const {data}=await axios.post(`http://localhost:5501/megrendelesek/${user._id}`,{
+    await axios.post(`http://localhost:5501/megrendelesek/${user._id}`,{
     felhasznalo:user._id,
     megrendelt_termekek:kosar,
     osszeg:osszeg,
@@ -139,7 +139,9 @@ const rendelesFelvetel=async()=>{
                    )
                    
                  }
-                
+                else{
+                  return('')
+                }
 
             }))
          })}

@@ -177,7 +177,9 @@ async function deleteBtn (event) {
      
      )
     }
-    
+    else{
+      return("")
+    }
    
  })}
  

@@ -52,7 +52,7 @@ function Szerkesztes(props) {
            }
             
           });
-       },[])
+       },[id])
  
     
 
@@ -65,7 +65,7 @@ function Szerkesztes(props) {
             "Content-type":"application/json"
           }
         }
-        const {data}=await axios.put(`http://localhost:5501/termekek/${id}`,{
+        await axios.put(`http://localhost:5501/termekek/${id}`,{
         termekNev,Ar,meret,Tipus,link
       },config)
       alert("Sikeresen szerkesztetted"+ id+" terméket!")

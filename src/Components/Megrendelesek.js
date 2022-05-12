@@ -7,8 +7,8 @@ import {Card, Row,Button,Modal} from 'react-bootstrap'
 function Megrendelesek() {
 
     const[megrendelesek,setmegrendelesek]=useState([])
-    const [admin,setAdmin]=useState(false)
-    const userinfo=localStorage.getItem("userinfo");
+    
+    const userinfo=JSON.parse(localStorage.getItem("userinfo"));
     const [show, setShow] = useState(false);
     const [felhasznalo,setfelhasznalo]=useState([])
     const [termekshow,SetTermekshow]=useState(false)
@@ -20,12 +20,12 @@ function Megrendelesek() {
     SetTermekshow(false)
   }
    
-    var d=JSON.parse(userinfo);
+   
   useEffect(()=>{
    
     if(userinfo){
-      if (d.isAdmin) {
-        setAdmin(true)
+      if (userinfo.isAdmin) {
+        
         return;
       }
       window.location.assign('/')
@@ -35,7 +35,8 @@ function Megrendelesek() {
      
     }
  
-  },[]);
+  },[userinfo]);
+  
     useEffect(()=>{
         axios({
           method: 'get',
@@ -90,7 +91,7 @@ function Megrendelesek() {
               "Content-type":"application/json"
             }
           }
-          const {data}=await axios.put(`http://localhost:5501/megrendelesek/${id}`,{
+         await axios.put(`http://localhost:5501/megrendelesek/${id}`,{
           
         },config)
         alert("Sikeresen fogadta ezt a rendelést!")
@@ -110,7 +111,7 @@ function Megrendelesek() {
               "Content-type":"application/json"
             }
           }
-          const {datas}=await axios.put(`http://localhost:5501/megrendelesekLez/${id}`,{
+          await axios.put(`http://localhost:5501/megrendelesekLez/${id}`,{
           
         },config)
         alert("Sikeresen lezárta ezt a rendelést!")

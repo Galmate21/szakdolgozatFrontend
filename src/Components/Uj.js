@@ -74,7 +74,7 @@ function Uj() {
                     "Content-type":"application/json"
                   }
                 }
-                const {data}=await axios.post(`http://localhost:5501/termekek`,{
+               await axios.post(`http://localhost:5501/termekek`,{
                 termekNev,Ar,meret,Tipus,link
               },config)
               alert("Sikeresen hozzáadtál egy új terméket!")

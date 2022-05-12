@@ -103,7 +103,7 @@ function Profil() {
         "Content-type":"application/json"
       }
     }
-    const {data}=  axios.put(`http://localhost:5501/felhasznalok/${adatok._id}`,{
+    axios.put(`http://localhost:5501/felhasznalok/${adatok._id}`,{
     nev:nev,
     cim:cim,
     felhasznalonev:felhasznalonev,

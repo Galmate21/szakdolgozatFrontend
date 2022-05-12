@@ -159,7 +159,9 @@ function Nadrag() {
     
      )
     }
-    
+    else{
+      return("")
+    }
    
  })}
  

@@ -149,7 +149,9 @@ const kosarhoz=function(id,ar){
     
      )
     }
-    
+    else{
+      return("")
+    }
    
  })}
  
